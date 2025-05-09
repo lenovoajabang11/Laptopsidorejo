@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-H">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layanan Servis Komputer & Laptop</title>
+    <style>
+        /* Reset CSS Dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            overflow: hidden;
+            padding: 0 20px;
+        }
+
+        /* Utilitas */
+        .text-center {
+            text-align: center;
+        }
+
+        .py-1 { padding: 40px 0; }
+        .py-2 { padding: 60px 0; }
+        .py-3 { padding: 80px 0; }
+
+        .mb-1 { margin-bottom: 20px; }
+        .mb-2 { margin-bottom: 40px; }
+
+        /* Header dan Navbar */
+        #main-header {
+            background: linear-gradient(90deg, #0052D4 0%, #4364F7 50%, #6FB1FC 100%);
+            color: #fff;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        #main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #main-header #logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        #main-navbar ul {
+            list-style: none;
+            display: flex;
+        }
+
+        #main-navbar ul li {
+            margin-left: 25px;
+        }
+
+        #main-navbar ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1em;
+            padding: 5px 10px;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        #main-navbar ul li a:hover,
+        #main-navbar ul li a.active {
+            color: #f0f0f0;
+            border-bottom: 2px solid #fff;
+        }
+
+        /* Tombol Menu Mobile */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle .bar {
+            height: 3px;
+            width: 25px;
+            background-color: #fff;
+            margin: 4px 0;
+            transition: 0.4s;
+        }
+
+        /* Hero Section */
+        #hero {
+            background: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y29tcHV0ZXJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1200&q=60') no-repeat center center/cover;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Overlay gelap */
+        }
+
+        #hero .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        #hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        #hero p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .btn {
+            display: inline-block;
+            background: #4364F7; /* Warna primer */
+            color: #fff;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+            background: #0052D4; /* Warna primer lebih gelap */
+            transform: translateY(-3px);
+        }
+
+        /* Seksi Layanan/Fitur */
+        #services {
+            background: #fff;
+        }
+
+        #services h2, #portfolio h2, #testimonials h2, #contact h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 60px;
+            color: #333;
+            position: relative;
+        }
+
+        #services h2::after, #portfolio h2::after, #testimonials h2::after, #contact h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: #4364F7;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .service-item {
+            background: #fff;
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+        }
+
+        .service-item .icon {
+            font-size: 3em; /* Ukuran ikon */
+            color: #4364F7; /* Warna ikon */
+            margin-bottom: 20px;
+            /* Ganti dengan SVG atau Font Awesome jika ada */
+        }
+
+        .service-item h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .service-item p {
+            font-size: 0.95em;
+            color: #555;
+        }
+
+        /* Seksi Portfolio/Galeri */
+        #portfolio {
+            background: #f0f4f8;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 250px; /* Tinggi gambar tetap */
+            object-fit: cover; /* Gambar akan mengisi area tanpa merusak aspek rasio */
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-item-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 82, 212, 0.7); /* Warna overlay */
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .portfolio-item:hover .portfolio-item-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-item-overlay h4 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+
+        .portfolio-item-overlay p {
+            font-size: 0.9em;
+        }
+
+        /* Lightbox/Modal CSS - Sederhana dengan :target */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox:target {
+            display: flex; /* Tampilkan ketika ID-nya menjadi target URL */
+        }
+
+        .lightbox img {
+            max-width: 80%;
+            max-height: 80%;
+            display: block;
+            margin: auto;
+            border: 5px solid #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 2.5em;
+            color: #fff;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        .lightbox-close:hover {
+            transform: scale(1.2);
+        }
+
+        /* Seksi Testimonial */
+        #testimonials {
+            background: #fff;
+        }
+
+        .testimonial-slider {
+            /* Untuk implementasi slider yang lebih canggih, JavaScript diperlukan. */
+            /* Ini adalah placeholder untuk beberapa testimonial berdampingan jika layar lebar */
+            display: flex;
+            flex-wrap: wrap; /* Membungkus item jika tidak muat */
+            justify-content: space-around;
+            gap: 20px;
+        }
+
+        .testimonial-item {
+            background: #f9f9f9;
+            border-left: 5px solid #4364F7; /* Aksen warna */
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.07);
+            flex-basis: calc(33.333% - 20px); /* 3 item per baris dengan gap */
+            margin-bottom: 20px; /* Jarak antar item jika membungkus */
+            min-width: 280px; /* Lebar minimum item */
+        }
+
+        .testimonial-item p.quote {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 1em;
+        }
+
+        .testimonial-item p.author {
+            font-weight: bold;
+            color: #333;
+            text-align: right;
+            font-size: 0.9em;
+        }
+
+        /* Formulir Kontak */
+        #contact {
+            background: #f0f4f8;
+        }
+
+        #contact-form {
+            max-width: 700px;
+            margin: auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group input[type="tel"]:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #4364F7;
+            box-shadow: 0 0 0 3px rgba(67, 100, 247, 0.2);
+            outline: none;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group select {
+            appearance: none; /* Hapus tampilan default browser */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D'12'%20height%3D'8'%20viewBox%3D'0%200%2012%208'%20fill%3D'none'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cpath%20d%3D'M1.41%200.580078L6%205.17008L10.59%200.580078L12%202.00008L6%208.00008L0%202.00008L1.41%200.580078Z'%20fill%3D'%23555'%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 12px;
+        }
+
+        .btn-submit {
+            background: #28a745; /* Warna sukses */
+            color: #fff;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            background: #218838; /* Warna sukses lebih gelap */
+            transform: translateY(-2px);
+        }
+
+        /* Validasi Formulir Sederhana */
+        .form-group input:invalid,
+        .form-group textarea:invalid {
+            border-color: #dc3545; /* Warna error */
+        }
+
+        /* Peta atau Lokasi (Opsional) */
+        #location {
+            background: #fff;
+        }
+
+        #location iframe {
+            width: 100%;
+            height: 450px;
+            border: 0;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Footer */
+        #main-footer {
+            background: #333;
+            color: #ccc;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        #main-footer .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #main-footer .social-links a {
+            color: #fff;
+            margin: 0 12px;
+            font-size: 1.8em; /* Ukuran ikon sosial media */
+            transition: color 0.3s ease;
+            /* Ganti dengan ikon SVG atau Font Awesome jika ada */
+        }
+
+        #main-footer .social-links a:hover {
+            color: #4364F7; /* Warna hover */
+        }
+
+        #main-footer p {
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+
+        /* Media Queries untuk Responsivitas */
+        @media(max-width: 992px) {
+            #hero h1 { font-size: 3em; }
+            #hero p { font-size: 1.3em; }
+
+            .testimonial-item {
+                flex-basis: calc(50% - 20px); /* 2 item per baris */
+            }
+        }
+
+        @media(max-width: 768px) {
+            #main-header .container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            #main-navbar {
+                width: 100%;
+                margin-top: 15px;
+                display: none; /* Sembunyikan secara default */
+            }
+
+            #main-navbar.active {
+                display: block; /* Tampilkan ketika aktif */
+            }
+
+            #main-navbar ul {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            #main-navbar ul li {
+                margin: 10px 0;
+                text-align: center;
+            }
+
+            #main-navbar ul li a {
+                display: block;
+                padding: 10px;
+            }
+
+            .menu-toggle {
+                display: flex;
+                position: absolute;
+                top: 25px;
+                right: 25px;
+            }
+
+            #hero {
+                height: 70vh;
+            }
+            #hero h1 { font-size: 2.5em; }
+            #hero p { font-size: 1.1em; }
+            .btn { padding: 12px 25px; font-size: 1em;}
+
+            #services h2, #portfolio h2, #testimonials h2, #contact h2 { font-size: 2em; margin-bottom: 40px;}
+
+            .services-grid, .portfolio-grid {
+                grid-template-columns: 1fr; /* Satu kolom di mobile */
+            }
+
+            .testimonial-item {
+                flex-basis: 100%; /* 1 item per baris */
+            }
+
+            #contact-form {
+                padding: 30px;
+            }
+        }
+
+        @media(max-width: 576px) {
+            #hero h1 { font-size: 2em; }
+            #hero p { font-size: 1em; }
+
+            .container {
+                width: 95%;
+                padding: 0 15px;
+            }
+            #main-header #logo { font-size: 1.6em; }
+            .menu-toggle { top: 22px; right: 20px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header id="main-header">
+        <div class="container">
+            <a href="#hero" id="logo">LAPTOP<span style="color: #f0f0f0;">SIDOREJO</span></a>
+            <nav id="main-navbar">
+                <ul>
+                    <li><a href="#hero" class="active">Beranda</a></li>
+                    <li><a href="#services">Layanan</a></li>
+                    <li><a href="#portfolio">Galeri</a></li>
+                    <li><a href="#testimonials">Testimonial</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+                    <li><a href="#location">Lokasi</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="hero-content">
+            <h1>Solusi Cepat & Terpercaya untuk Komputer Anda</h1>
+            <p>Jangan biarkan masalah teknis menghambat produktivitas Anda. Kami siap membantu!</p>
+            <a href="#contact" class="btn">Hubungi Kami Sekarang</a>
+        </div>
+    </section>
+
+    <section id="services" class="py-2">
+        <div class="container">
+            <h2>Layanan Kami</h2>
+            <div class="services-grid">
+                <div class="service-item">
+                    <div class="icon">💻</div> <h3>Servis Hardware</h3>
+                    <p>Perbaikan komponen komputer dan laptop seperti motherboard, RAM, hardisk, layar, keyboard, dll.</p>
+                </div>
+                <div class="service-item">
+                    <div class="icon">⚙️</div>
+                    <h3>Instalasi Software</h3>
+                    <p>Instalasi sistem operasi (Windows, Linux, MacOS), aplikasi perkantoran, desain, antivirus, dll.</p>
+                </div>
+                <div class="service-item">
+                    <div class="icon">🌐</div>
+                    <h3>Jaringan & Internet</h3>
+                    <p>Setup jaringan kantor atau rumah, troubleshooting koneksi internet, konfigurasi router/modem.</p>
+                </div>
+                <div class="service-item">
+                    <div class="icon">🛡️</div>
+                    <h3>Recovery Data</h3>
+                    <p>Pengembalian data yang hilang akibat terhapus, terformat, atau kerusakan media penyimpanan.</p>
+                </div>
+                <div class="service-item">
+                    <div class="icon">📈</div>
+                    <h3>Upgrade Komputer</h3>
+                    <p>Tingkatkan performa komputer atau laptop Anda dengan upgrade komponen yang tepat.</p>
+                </div>
+                <div class="service-item">
+                    <div class="icon">🧼</div>
+                    <h3>Maintenance Rutin</h3>
+                    <p>Pembersihan fisik dan sistem untuk menjaga komputer tetap optimal dan awet.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="py-2">
+        <div class="container">
+            <h2>Galeri Pengerjaan</h2>
+            <div class="portfolio-grid">
+                <a href="#img1" class="portfolio-item">
+                    <img src="https://images.unsplash.com/photo-1587831990711-23ca6441447b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y29tcHV0ZXIlMjByZXBhaXJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60" alt="Proyek Perbaikan 1">
+                    <div class="portfolio-item-overlay">
+                        <h4>Perbaikan Motherboard</h4>
+                        <p>Diagnosis dan penggantian komponen IC pada motherboard laptop.</p>
+                    </div>
+                </a>
+                <a href="#img2" class="portfolio-item">
+                    <img src="ken.jpg" alt="Proyek Perbaikan 2">
+                    <div class="portfolio-item-overlay">
+                        <h4>Proses Analisa mainboard</h4>
+                        <p>Mencari komponen yang rusak/korosi.</p>
+                    </div>
+                </a>
+                <a href="#img3" class="portfolio-item">
+                    <img src="kipas.jpg" alt="Proyek Perbaikan 3">
+                    <div class="portfolio-item-overlay">
+                        <h4>Pengukuran Tegangan</h4>
+                        <p>Penyelamatan data penting dari hardisk yang rusak.</p>
+                    </div>
+                </a>
+                 <a href="#img4" class="portfolio-item">
+                    <img src="klp.jpg" alt="Pemasangan ic">
+                    <div class="portfolio-item-overlay">
+                        <h4>Proses pergantian IC</h4>
+                        <p>Setiap kompomen yang bermasalah akan di ganti dengan komponen baru.</p>
+                    </div>
+                </a>
+                
+                      <a href="#img5" class="portfolio-item">
+                    <img src="doni.jpg" alt="Selesao">
+                    <div class="portfolio-item-overlay">
+                        <h4>LAPTOP BERHASIL DI SERVICE</h4>
+                        <p>Sebelum melakukan konfirmasi kepada pemilik kita tes  Dulu.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div id="img1" class="lightbox">
+        <a href="#portfolio" class="lightbox-close">&times;</a>
+        <img src="https://images.unsplash.com/photo-1587831990711-23ca6441447b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y29tcHV0ZXIlMjByZXBhaXJ8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=1000&q=80" alt="Proyek Perbaikan 1 Besar">
+    </div>
+    <div id="img2" class="lightbox">
+        <a href="#portfolio" class="lightbox-close">&times;</a>
+        <img src="ken.jpg" alt="Proyek Perbaikan 2 Besar">
+    </div>
+    <div id="img3" class="lightbox">
+        <a href="#portfolio" class="lightbox-close">&times;</a>
+        <img src="kipas.jpg" alt="Proyek Perbaikan 3 Besar">
+    </div>
+    <div id="img4" class="lightbox">
+        <a href="#portfolio" class="lightbox-close">&times;</a>
+        <img src="kkk.jpg" alt="Proyek Instalasi Jaringan Besar">
+    </div>
+    
+        <div id="img5" class="lightbox">
+        <a href="#portfolio" class="lightbox-close">&times;</a>
+        <img src="doni.jpg" alt="Proyek Instalasi Jaringan Besar">
+    </div>
+
+
+    <section id="testimonials" class="py-2">
+        <div class="container">
+            <h2>Apa Kata Mereka?</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial-item">
+                    <p class="quote">"Pelayanannya sangat cepat dan profesional. Laptop saya kembali normal seperti baru. Terima kasih banyak!"</p>
+                    <p class="author">- Budi Santoso</p>
+                </div>
+                <div class="testimonial-item">
+                    <p class="quote">"Masalah komputer kantor berhasil diatasi dengan baik. Sekarang jaringan jadi lebih stabil. Recommended!"</p>
+                    <p class="author">- PT. Maju Jaya</p>
+                </div>
+                <div class="testimonial-item">
+                    <p class="quote">"Data penting saya berhasil diselamatkan. Benar-benar ahli di bidangnya. Harganya juga terjangkau."</p>
+                    <p class="author">- Siti Aminah</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-2">
+        <div class="container">
+            <h2>Hubungi Kami</h2>
+            <form id="contact-form">
+                <div class="form-group">
+                    <label for="nama">Nama Lengkap:</label>
+                    <input type="text" id="nama" name="nama" required>
+                </div>
+                <div class="form-group">
+                    <label for="alamat">Alamat:</label>
+                    <input type="text" id="alamat" name="alamat" required>
+                </div>
+                <div class="form-group">
+                    <label for="nomer_hp">Nomor HP:</label>
+                    <input type="tel" id="nomer_hp" name="nomer_hp" pattern="[0-9]{10,15}" required placeholder="Contoh: 081234567890">
+                </div>
+                 <div class="form-group">
+                    <label for="merk_laptop">Merk Laptop/PC:</label>
+                    <select id="merk_laptop" name="merk_laptop" required>
+                        <option value="">-- Pilih Merk --</option>
+                        <option value="ASUS">ASUS</option>
+                        <option value="ACER">ACER</option>
+                        <option value="COMPAQ">COMPAQ</option>
+                        <option value="DELL">DELL</option>
+                        <option value="FUJITSU">FUJITSU</option>
+                        <option value="MSI">MSI</option>
+                        <option value="LENOVO">LENOVO</option>
+                        <option value="TOSHIBA">TOSHIBA</option>
+                        <option value="LAINNYA">Merk Lainnya</option>
+                        <option value="PC RAKITAN">PC Rakitan</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sn">Serial Number (SN): (Opsional)</label>
+                    <input type="text" id="sn" name="sn">
+                </div>
+                <div class="form-group">
+                    <label for="keluhan">Keluhan:</label>
+                    <textarea id="keluhan" name="keluhan" rows="5" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email: (Opsional)</label>
+                    <input type="email" id="email" name="email">
+                </div>
+                <button type="submit" class="btn-submit">Kirim Permintaan Servis</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="location" class="py-2">
+        <div class="container">
+            <h2 class="text-center">Lokasi Kami</h2>
+            <p class="text-center mb-2">Temukan kami di sini atau hubungi untuk layanan jemput.</p>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3954.487326430127!2d110.85711147401233!3d-7.628401075717682!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a1586cc60c387%3A0xdcd5f83719020342!2sLAPTOP%20SIDOREJO!5e0!3m2!1sid!2sid!4v1715249471494!5m2!1sid!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </section>
+
+
+    <footer id="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links mb-1">
+                    <a href="#" title="Facebook">FB</a>
+                    <a href="#" title="Instagram">IG</a>
+                    <a href="#" title="Whatsapp">WA</a>
+                    <a href="#" title="Twitter">TW</a>
+                </div>
+                <p>Jalan Contoh No. 123, Kota ABC, Indonesia</p>
+                <p>Email: info@serviskita.com | Telepon: (021) 123-4567</p>
+                <p>&copy; <span id="currentYear"></span> ServisKita. All Rights Reserved. Didesain dengan ❤️.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Script untuk menu mobile (hamburger)
+        const menuToggle = document.getElementById('mobile-menu');
+        const navbar = document.getElementById('main-navbar');
+
+        menuToggle.addEventListener('click', () => {
+            navbar.classList.toggle('active');
+            menuToggle.classList.toggle('is-active'); // Untuk animasi X jika ada
+        });
+
+        // Script untuk menutup menu mobile ketika link di klik
+        const navLinks = document.querySelectorAll('#main-navbar ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (navbar.classList.contains('active')) {
+                    navbar.classList.remove('active');
+                    menuToggle.classList.remove('is-active');
+                }
+            });
+        });
+
+        // Script untuk tahun copyright otomatis
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Script untuk validasi formulir (sederhana, lebih baik dikombinasikan dengan validasi server)
+        const contactForm = document.getElementById('contact-form');
+        contactForm.addEventListener('submit', function(event) {
+            let isValid = true;
+            // Contoh validasi sederhana, HTML5 'required' sudah menangani banyak hal
+            const nama = document.getElementById('nama').value;
+            const alamat = document.getElementById('alamat').value;
+            const nomerHp = document.getElementById('nomer_hp').value;
+            const keluhan = document.getElementById('keluhan').value;
+            const merk = document.getElementById('merk_laptop').value;
+
+            if (nama.trim() === '' || alamat.trim() === '' || nomerHp.trim() === '' || keluhan.trim() === '' || merk === '') {
+                isValid = false;
+                alert('Mohon lengkapi semua kolom yang wajib diisi.');
+            }
+
+            // Validasi pola nomor HP (opsional, sudah ada pattern di HTML)
+            const hpPattern = /^[0-9]{10,15}$/;
+            if (!hpPattern.test(nomerHp)) {
+                alert('Format Nomor HP tidak valid. Harap masukkan 10-15 digit angka.');
+                isValid = false;
+            }
+
+
+            if (!isValid) {
+                event.preventDefault(); // Mencegah form dikirim jika tidak valid
+            } else {
+                // Di sini Anda bisa menambahkan kode untuk mengirim data form, misal via AJAX
+                // Untuk contoh ini, kita hanya tampilkan alert
+                alert('Permintaan servis Anda telah diterima! Kami akan segera menghubungi Anda.');
+                // event.preventDefault(); // Hapus ini jika ingin form benar-benar tersubmit ke action (jika ada)
+                // contactForm.reset(); // Mengosongkan form setelah submit berhasil
+            }
+        });
+
+        // Efek aktif pada link navigasi saat scroll (sederhana)
+        const sections = document.querySelectorAll('section[id]');
+        window.addEventListener('scroll', navHighlighter);
+
+        function navHighlighter() {
+          let scrollY = window.pageYOffset;
+
+          sections.forEach(current => {
+            const sectionHeight = current.offsetHeight;
+            // Tambahkan offset jika header sticky
+            const headerOffset = document.getElementById('main-header').offsetHeight + 20;
+            const sectionTop = current.offsetTop - headerOffset;
+            let sectionId = current.getAttribute('id');
+
+            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight){
+              document.querySelector('#main-navbar a[href*=' + sectionId + ']').classList.add('active');
+            } else {
+              document.querySelector('#main-navbar a[href*=' + sectionId + ']').classList.remove('active');
+            }
+          });
+
+          // Khusus untuk link hero, aktif jika paling atas
+          if (scrollY < document.getElementById('services').offsetTop - (document.getElementById('main-header').offsetHeight + 20)) {
+             document.querySelector('#main-navbar a[href*="hero"]').classList.add('active');
+          } else {
+             document.querySelector('#main-navbar a[href*="hero"]').classList.remove('active');
+          }
+        }
+
+    </script>
+</body>
+</html>
+>
